@@ -1,9 +1,11 @@
 import * as React from 'react';
-
-export function Header() {
-    return (
-        <header>
-            <h1>Reddit for our own</h1>
-        </header>
-    )
+import { hot } from 'react-hot-loader/root'
+function HeaderComponent() {
+  return (
+    <header>
+      <h1>Reddit for our own 123123</h1>
+    </header>
+  )
 }
+
+export const Header = hot(HeaderComponent);
