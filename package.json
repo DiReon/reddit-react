@@ -12,6 +12,7 @@
   "devDependencies": {
     "@hot-loader/react-dom": "^17.0.1",
     "@types/jest": "^25.1.4",
+    "@types/react": "^17.0.38",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^3.4.2",
