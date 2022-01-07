@@ -34,7 +34,7 @@ module.exports = {
         use: ['ts-loader']
       },
       {
-        test: /\.less?$/,
+        test: /\.css?$/,
         use: [
           'style-loader',
           {
@@ -45,8 +45,7 @@ module.exports = {
                 localIdentName: '[name]__[local]--[hash:base64:5]'
               }
             }
-          },
-          'less-loader'
+          }
         ],
         exclude: GLOBAL_CSS_REGEXP
       },
