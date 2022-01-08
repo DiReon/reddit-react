@@ -8,7 +8,7 @@ interface IContentProps {
 export function Content({children}: IContentProps) {
   return (
     <main className={styles.content}>
-      Content
+      {children}
     </main>
   );
 }

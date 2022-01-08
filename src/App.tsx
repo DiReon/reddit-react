@@ -4,12 +4,15 @@ import {Layout} from './shared/Layout';
 import './main.global.css';
 import {Header} from './shared/Header';
 import {Content} from './shared/Content';
+import {CardsList} from './shared/CardsList';
 
 function AppComponent() {
   return (
     <Layout>
       <Header />
-      <Content />
+      <Content>
+        <CardsList />
+      </Content>
     </Layout>
   );
 }
