@@ -11,5 +11,5 @@ function pickFromSynteticEvent<T extends HTMLElement>() {
     <E extends ((t: T[K]) => void)>(fn: E) => (e: React.SyntheticEvent<T>) => fn(e.currentTarget[key])
 }
 
-// export const getValue = pickFromSynteticEvent<HTMLInputElement>()('value');
+export const getValue = pickFromSynteticEvent<HTMLInputElement>()('value');
 
