@@ -18,35 +18,11 @@ const LIST = [
 
 
 function AppComponent() {
-  // const [list, setList] = React.useState(LIST);
-  //
-  // const handleItemClick = (id: string) => {
-  //   console.log('set list');
-  //   setList(list.filter((item) => item.id !== id));
-  // }
-  // const addListItem = () => {
-  //   console.log('adding item...');
-  //   setList(list.concat(generateId({text: generateRandomIndex()})) )
-  // }
-  //
-  // const [isVisible, setIsVisible] = React.useState(false);
-  // const [title, setTitle] = React.useState('');
   return (
     <Layout>
       <Header/>
       <Content>
         <CardsList/>
-        {/*<button onClick={() => setIsVisible(!isVisible)}>Change me!</button>*/}
-        {/*<input type="text" onChange={getValue(setTitle)} />*/}
-        {/*{isVisible && <MyHooks title={title} id="11" />}*/}
-        {/*<button onClick={addListItem}>Add item</button>*/}
-        <br/>
-        <div style={{padding: '20px'}}>
-          <Dropdown onClose={() => console.log('closed')} onOpen={() => console.log('opened')} isOpen={false} button={<button>List</button>}>
-            <CardsList/>
-          </Dropdown>
-        </div>
-        {/*<GenericList list={list.map(merge({onClick: handleItemClick}))}/>*/}
       </Content>
     </Layout>
   );

@@ -1,17 +1,12 @@
 import React from 'react';
-import styles from './dropdown.css';
+import styles from './menu.css';
 
 interface IDropDownProps {
   button: React.ReactNode;
   children: React.ReactNode;
-  isOpen?: boolean;
-  onOpen?: () => void;
-  onClose?: () => void;
 }
 
-const NOOP = () => {};
-
-export function Dropdown({button, children}: IDropDownProps) {
+export function Menu({button, children}: IDropDownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 
   return (
