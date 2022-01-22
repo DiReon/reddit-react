@@ -10,24 +10,15 @@ import {Menu} from './Menu';
 
 const list = [
   {
-    // id: 'id1',
     text: 'Menu item 1',
-    className: 'menu-item',
-    // onClick: (id: string) => handleItemClick(),
     As: 'li' as const
   },
   {
-    // id: 'id2',
     text: 'Menu item 2',
-    className: 'menu-item',
-    // onClick: (id: string) => handleItemClick(),
     As: 'li' as const
   },
   {
-    // id: 'id3',
     text: 'Menu item 3',
-    className: 'menu-item',
-    // onClick: (id: string) => handleItemClick(),
     As: 'li' as const
   }
 ].map(generateId);
@@ -43,8 +34,8 @@ export function Header() {
       <ThreadTitle />
       <SortBlock />
       <br/>
-      <Menu button={<button type="button">Menu</button>}>
-        <ul className={styles.menu}>
+      <Menu button={<button>Menu</button>}>
+        <ul>
           <GenericList list={list.map(merge({onClick: handleItemClick}))}/>
         </ul>
       </Menu>

@@ -16,13 +16,11 @@
 	height: 100%;
 }
 
-.menu {
-	background: var(--grayF4);
-	border: 1px solid var(--gray66);
-	text-decoration: none;
-}
-
-.menu-item {
+ul > li {
+	width: 300px;
 	padding: 8px;
 	font-size: 16px;
+	cursor: pointer;
+	background: var(--grayF4);
+	border: 1 px solid var(--gray66);
 }

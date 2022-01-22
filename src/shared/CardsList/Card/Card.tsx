@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './card.css';
 import {ImgBlock} from './ImgBlock';
+import {ICardData} from '../CardsList';
+import {CardInfo} from './CardInfo';
 import {CardMenu} from './CardMenu';
 import {CardControls} from './CardControls';
-import {CardInfo} from './CardInfo/CardInfo';
-import {ICardData} from '../CardsList';
 
 export function Card({data: {text, postUrl, user, postDate}}: ICardData) {
 

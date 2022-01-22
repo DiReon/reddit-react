@@ -30,14 +30,4 @@ export function GenericList({list}: IGenericListProps) {
     </>
   )
 }
-//
-// export function MyList({list}: IGenericListProps) {
-//   return (
-//     <ul>
-//       { list.map(item =>
-//         <li key={item.id} onClick={() => item.onClick(item.id)}>{item.value}</li>
-//       )}
-//     </ul>
-//   );
-// }
 
