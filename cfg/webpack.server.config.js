@@ -6,7 +6,7 @@ const GLOBAL_CSS_REGEXP = /\.global\.css?$/;
 module.exports = {
   target: 'node',
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.svg'],
   },
   mode: NODE_ENV ? NODE_ENV : 'development',
   entry: path.resolve(__dirname, '../src/server/server.js'),
@@ -36,6 +36,11 @@ module.exports = {
           },
         ],
         exclude: GLOBAL_CSS_REGEXP
+      },
+      {
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        include: [path.join(__dirname, "src/assets")],
+        loader: "file-loader?name=assets/[name].[ext]"
       },
       {
         test: GLOBAL_CSS_REGEXP,

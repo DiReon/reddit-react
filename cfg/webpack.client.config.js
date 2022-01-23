@@ -12,7 +12,7 @@ function setupDevTool() {
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.svg'],
     alias: {
       'react-dom': IS_DEV ? '@hot-loader/react-dom' : 'react-dom'
     }
@@ -48,6 +48,11 @@ module.exports = {
           }
         ],
         exclude: GLOBAL_CSS_REGEXP
+      },
+      {
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        include: [path.join(__dirname, "src/assets")],
+        loader: "file-loader?name=assets/[name].[ext]"
       },
       {
         test: GLOBAL_CSS_REGEXP,

@@ -3,7 +3,7 @@ import styles from './text.css';
 import classNames from 'classnames';
 type Tsizes = 28 | 20 | 16 | 14 | 12 | 10;
 
-enum EColor {
+export enum EColors {
   black = 'black',
   orange = 'orange',
   green = 'green',
@@ -25,7 +25,7 @@ interface ITextProps {
   mobileSize?: Tsizes,
   tabletSize?: Tsizes,
   desktopSize?: Tsizes,
-  color?: EColor
+  color?: EColors
 
 }
 
@@ -33,7 +33,7 @@ export function Text(props: ITextProps) {
   const {
     As = 'span',
     children,
-    color = EColor.black,
+    color = EColors.black,
     size,
     mobileSize,
     tabletSize,
