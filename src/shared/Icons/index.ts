@@ -4,3 +4,4 @@ export * from './BlockIcon';
 export * from './CommentIcon';
 export * from './save-icon';
 export * from './ShareIcon';
+export * from './anonimIcon';

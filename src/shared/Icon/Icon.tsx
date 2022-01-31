@@ -36,7 +36,6 @@ export function Icon({name, size = 16}: IIconProps) {
   const svgInnerHtml = element.innerHTML;
 
   const svgElement = <span className={styles.container} dangerouslySetInnerHTML={{__html: svgInnerHtml}}/>
-  console.log(svgElement.props);
   return (
     svgElement
   )
