@@ -6,14 +6,14 @@ import {CardInfo} from './CardInfo';
 import {CardMenu} from './CardMenu';
 import {CardControls} from './CardControls';
 
-export function Card({data: {text, postUrl, user, postDate}}: ICardData) {
+export function Card({data: {text, postUrl, user, postDate, postImgUrl}}: ICardData) {
 
   return (
     <li className={styles.card}>
 
       <CardInfo text={text} postUrl={postUrl} user={user} postDate={postDate}/>
 
-      <ImgBlock />
+      <ImgBlock imgUrl={postImgUrl} />
 
       <CardMenu />
 
