@@ -27,7 +27,7 @@ export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl
         </a>
       </h2>
       {isModalOpen && (
-        <Post/>
+        <Post onClose={() => {setIsModalOpen(false)}}/>
       )}
     </div>
   );
