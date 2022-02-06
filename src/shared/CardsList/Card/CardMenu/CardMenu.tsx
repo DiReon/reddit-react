@@ -8,11 +8,11 @@ export function CardMenu() {
   return (
     <div className={styles.menu}>
       <Dropdown
-      button={
-        <button className={styles.menuButton}>
-          <MenuIcon />
-        </button>
-      }
+        button={
+          <button className={styles.menuButton}>
+            <MenuIcon />
+          </button>
+        }
       >
         <div className={styles.dropdown}>
           <MenuItemsList postId={'1234'} />
