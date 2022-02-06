@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './cardinfo.css';
 import {IUser} from '../../CardsList';
+import {Post} from '../../../Post';
 
 export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl: string, user: IUser, postDate: string}) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={styles.textContent}>
       <div className={styles.metaData}>
@@ -20,10 +22,13 @@ export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl
           </span>
       </div>
       <h2 className={styles.title}>
-        <a href={postUrl} className={styles.postLink}>
+        <a href={postUrl} className={styles.postLink} onClick={() => {setIsModalOpen(true)}}>
           {text}
         </a>
       </h2>
+      {isModalOpen && (
+        <Post/>
+      )}
     </div>
   );
 }
