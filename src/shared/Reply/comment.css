@@ -1,0 +1,33 @@
+.commentInfoContainer {
+	display: flex;
+	flex-direction: row;
+}
+
+.avatar {
+	width: 20px;
+	heigth: 20px;
+	margin-left: 7px;
+}
+
+.author	{
+	margin-right: 4px;
+	color: #CC6633;
+}
+
+.timestamp {
+	margin-right: 4px;
+	color: var(--grayC4);
+}
+
+.actions {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+}
+
+.menuItem {
+	display: flex;
+	align-items: center;
+	margin-right: 27px;
+	cursor: pointer;
+}

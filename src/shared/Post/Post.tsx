@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as ReactDOM from 'react-dom';
 import styles from './post.css';
 import {CommentForm} from '../CommentForm';
+import {Comment} from '../Reply';
 
 interface IPost {
   onClose?: () => void;
@@ -29,10 +30,9 @@ export function Post(props: IPost) {
       <h2>Следует отметить, что новая модель организационной деятельности поможет</h2>
       <div className={styles.content}>
         <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное,</p>
-        <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное,</p>
-        <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное,</p>
       </div>
       <CommentForm />
+      <Comment />
     </div>), node
   );
 }
