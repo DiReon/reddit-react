@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './comment.css';
 import {EIcon, Icon} from '../Icon';
 import {EColors, Text} from '../Text';
+import {ReplyUncontrolledForm} from '../ReplyForm';
+import {ReplyControlledForm} from '../ReplyForm';
 
 export function Comment() {
+  const [isReplyFormOpen, setIsReplyFormOpen] = useState(false);
+
   return (
     <div>
       <div className={styles.commentInfoContainer}>
@@ -13,7 +17,7 @@ export function Comment() {
       </div>
       <p>Сторонники тоталитаризма в науке будут объективно рассмотрены соответствующими инстанциями. Лишь реплицированные с зарубежных источников, современные исследования будут описаны максимально подробно.</p>
       <ul className={styles.actions}>
-        <li className={styles.menuItem}>
+        <li className={styles.menuItem} onClick={() => {setIsReplyFormOpen(true)}}>
           <Icon name={EIcon.comment} size={14} />
           <Text size={14} color={EColors.gray99}>Ответить</Text>
         </li>
@@ -28,6 +32,12 @@ export function Comment() {
           <Text size={14} color={EColors.gray99}>Пожаловаться</Text>
         </li>
       </ul>
+      {isReplyFormOpen && (
+        <div>
+          <ReplyUncontrolledForm />
+          <ReplyControlledForm />
+        </div>
+      )}
     </div>
   );
 }
