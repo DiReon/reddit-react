@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import * as ReactDOM from 'react-dom';
 import styles from './post.css';
-import {CommentForm} from '../CommentForm';
 import {Comment} from '../Reply';
+import {CommentFormContainer} from '../CommentFormContainer';
 
 interface IPost {
   onClose?: () => void;
@@ -31,7 +31,7 @@ export function Post(props: IPost) {
       <div className={styles.content}>
         <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное,</p>
       </div>
-      <CommentForm />
+      <CommentFormContainer />
       <Comment />
     </div>), node
   );
