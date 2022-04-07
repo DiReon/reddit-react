@@ -17,7 +17,6 @@ export function useUserData() {
   useEffect(() => {
     if (!token) return;
     dispatch(meRequestAsync());
-
   }, [token]);
 
   return {loading, data};

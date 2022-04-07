@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useUserData} from '../hooks/useUserData';
-import {useToken} from '../hooks/useToken';
 import {useDispatch} from 'react-redux';
-import {setToken} from '../store/reducer';
+import {saveToken} from '../store/reducer';
 
 
 interface IUserContextData {
@@ -12,11 +11,13 @@ interface IUserContextData {
 
 export const userContext = React.createContext<IUserContextData>({});
 
-export function UserContextProvider({children}: {children: React.ReactNode}) {
+export function UserContextProvider({children}: { children: React.ReactNode }) {
   const {data} = useUserData();
-  const [token] = useToken();
   const dispatch = useDispatch();
-  dispatch(setToken(token));
+
+  useEffect(() => {
+    dispatch(saveToken())
+  }, [])
 
   return (
     <userContext.Provider value={data}>

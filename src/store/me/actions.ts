@@ -1,6 +1,6 @@
 import {Action, ActionCreator} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {RootState} from '../reducer';
+import {RootState, setToken} from '../reducer';
 import axios from 'axios';
 
 export const ME_REQUEST = 'ME_REQUEST';
@@ -24,7 +24,7 @@ interface IUserData {
   iconImg?: string;
 }
 
-export type MeRequestSuccessAction =  {
+export type MeRequestSuccessAction = {
   type: typeof ME_REQUEST_SUCCESS;
   data: IUserData
 }
@@ -36,7 +36,7 @@ export const meRequestSuccess: ActionCreator<MeRequestSuccessAction> = (data) =>
   }
 }
 
-export type MeRequestErrorAction =  {
+export type MeRequestErrorAction = {
   type: typeof ME_REQUEST_ERROR;
   error: string
 }
@@ -62,5 +62,4 @@ export const meRequestAsync = (): ThunkAction<void, RootState, unknown, Action<s
       console.log(error);
       dispatch(meRequestError(error));
     })
-
 }
