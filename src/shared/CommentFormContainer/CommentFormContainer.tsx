@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState, updateComment} from '../../store';
+import {RootState, updateComment} from '../../store/reducer';
 import React, {ChangeEvent, FormEvent} from 'react';
 import {CommentForm} from '../CommentForm';
 
