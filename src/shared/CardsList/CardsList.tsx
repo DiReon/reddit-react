@@ -1,7 +1,9 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './cardslist.css';
 import {Card} from './Card';
-import {postsContext} from '../../context/postsContext';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store/reducer';
 
 export interface IUser {
   name: string;
@@ -10,6 +12,7 @@ export interface IUser {
 
 export interface ICardData{
   data: {
+    key: string;
     text: string;
     postUrl: string;
     user: IUser;
@@ -30,11 +33,50 @@ const mockCardData = {
 }
 
 export function CardsList() {
-  const postsData: ICardData[] = useContext(postsContext);
+  // const postsData: ICardData[] = useContext(postsContext);
+  const token = useSelector<RootState>(state => state.token);
+  const [posts, setPosts] = useState<ICardData[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [errorLoading, setErrorLoading] = useState('');
+
+  useEffect(() => {
+    if (!token) return;
+
+    async function load() {
+      setLoading(true);
+      try {
+        const {data: {data: {children}}} = await axios.get('https://oauth.reddit.com/best', {
+          headers: {Authorization: `bearer ${token}`}
+        })
+        const result = children.map((item: any) => ({
+          data: {
+            key: item.data.id,
+            user: {name: item.data.author},
+            text: item.data.title,
+            postUrl: item.data.url,
+            postImgUrl: item.data.thumbnail
+          }
+        }));
+        setLoading(false);
+        console.log(children);
+        setPosts(result);
+      }
+      catch (error) {
+        setLoading(false);
+        setErrorLoading(String(error));
+      }
+    }
+    load();
+  }, [token])
   return (
     <ul className={styles.cardsList}>
-      {/*{ postsData.map(item => <Card data={item.data}/>) }*/}
-      <Card data={mockCardData}/>
+      { posts.map(item => <Card key={item.data.key} data={item.data}/>) }
+      {/*<Card data={mockCardData}/>*/}
+      {posts.length === 0 && !loading && !errorLoading && (
+        <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
+      )}
+      { loading && (<div  style={{ textAlign: 'center'}}>Загрузка...</div>)}
+      {errorLoading && (<div role="alert" style={{ textAlign: 'center'}}>{errorLoading}</div>)}
     </ul>
   );
 }
