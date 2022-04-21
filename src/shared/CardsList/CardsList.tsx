@@ -33,48 +33,50 @@ const mockCardData = {
 }
 
 export function CardsList() {
-  // const postsData: ICardData[] = useContext(postsContext);
   const token = useSelector<RootState>(state => state.token);
   const [posts, setPosts] = useState<ICardData[]>([]);
   const [loading, setLoading] = useState(false);
   const [errorLoading, setErrorLoading] = useState('');
   const [nextAfter, setNextAfter] = useState('');
   const bottomOfList = useRef<HTMLDivElement>(null);
+  const [counter, setCounter] = useState(0);
+
+  async function load() {
+    setLoading(true);
+    try {
+      const response = await axios.get('https://oauth.reddit.com/best', {
+        headers: {Authorization: `bearer ${token}`},
+        params: {
+          limit: 10,
+          after: nextAfter,
+        }
+      })
+      const {data: {data: {after, children}}} = response;
+      const result = children.map((item: any) => ({
+        data: {
+          key: item.data.id,
+          user: {name: item.data.author},
+          text: item.data.title,
+          postUrl: item.data.url,
+          postImgUrl: item.data.thumbnail
+        }
+      }));
+
+      setNextAfter(after);
+      setPosts(prevChildren => prevChildren.concat(...result));
+    }
+    catch (error) {
+      setErrorLoading(String(error));
+    }
+    setLoading(false);
+  }
 
   useEffect(() => {
-    async function load() {
-      setLoading(true);
-      try {
-        const {data: {data: {after, children}}} = await axios.get('https://oauth.reddit.com/best', {
-          headers: {Authorization: `bearer ${token}`},
-          params: {
-            limit: 10,
-            after: nextAfter,
-          }
-        })
-        const result = children.map((item: any) => ({
-          data: {
-            key: item.data.id,
-            user: {name: item.data.author},
-            text: item.data.title,
-            postUrl: item.data.url,
-            postImgUrl: item.data.thumbnail
-          }
-        }));
-
-        setNextAfter(after);
-        setPosts(prevChildren => prevChildren.concat(...result));
-      }
-      catch (error) {
-        setErrorLoading(String(error));
-      }
-      setLoading(false);
-    }
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        console.log('load more');
+      if (entries[0].isIntersecting && counter < 2) {
         load();
+        setCounter(counter + 1);
       }
     }, {
       rootMargin: '10px'
@@ -89,6 +91,13 @@ export function CardsList() {
       }
     }
   }, [bottomOfList.current, nextAfter, token])
+
+
+  function loadMore() {
+    load();
+    setCounter(0);
+  }
+
   return (
     <ul className={styles.cardsList}>
       { posts.map(item => <Card key={item.data.key} data={item.data}/>) }
@@ -96,6 +105,7 @@ export function CardsList() {
       {posts.length === 0 && !loading && !errorLoading && (
         <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
       )}
+      {(counter > 1) && (<button className={styles.button} onClick={loadMore}>Загрузить еще</button>)}
 
       <div ref={bottomOfList} />
 
