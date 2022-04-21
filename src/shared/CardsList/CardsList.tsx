@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './cardslist.css';
 import {Card} from './Card';
 import axios from 'axios';
@@ -38,15 +38,19 @@ export function CardsList() {
   const [posts, setPosts] = useState<ICardData[]>([]);
   const [loading, setLoading] = useState(false);
   const [errorLoading, setErrorLoading] = useState('');
+  const [nextAfter, setNextAfter] = useState('');
+  const bottomOfList = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!token) return;
-
     async function load() {
       setLoading(true);
       try {
-        const {data: {data: {children}}} = await axios.get('https://oauth.reddit.com/best', {
-          headers: {Authorization: `bearer ${token}`}
+        const {data: {data: {after, children}}} = await axios.get('https://oauth.reddit.com/best', {
+          headers: {Authorization: `bearer ${token}`},
+          params: {
+            limit: 10,
+            after: nextAfter,
+          }
         })
         const result = children.map((item: any) => ({
           data: {
@@ -57,17 +61,34 @@ export function CardsList() {
             postImgUrl: item.data.thumbnail
           }
         }));
-        setLoading(false);
-        console.log(children);
-        setPosts(result);
+
+        setNextAfter(after);
+        setPosts(prevChildren => prevChildren.concat(...result));
       }
       catch (error) {
-        setLoading(false);
         setErrorLoading(String(error));
       }
+      setLoading(false);
     }
-    load();
-  }, [token])
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        console.log('load more');
+        load();
+      }
+    }, {
+      rootMargin: '10px'
+    })
+    if (bottomOfList.current) {
+      observer.observe(bottomOfList.current)
+    }
+
+    return () => {
+      if (bottomOfList.current) {
+        observer.unobserve(bottomOfList.current)
+      }
+    }
+  }, [bottomOfList.current, nextAfter, token])
   return (
     <ul className={styles.cardsList}>
       { posts.map(item => <Card key={item.data.key} data={item.data}/>) }
@@ -75,7 +96,11 @@ export function CardsList() {
       {posts.length === 0 && !loading && !errorLoading && (
         <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
       )}
+
+      <div ref={bottomOfList} />
+
       { loading && (<div  style={{ textAlign: 'center'}}>Загрузка...</div>)}
+
       {errorLoading && (<div role="alert" style={{ textAlign: 'center'}}>{errorLoading}</div>)}
     </ul>
   );
