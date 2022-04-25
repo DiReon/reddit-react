@@ -41,13 +41,17 @@ export function CardsList() {
   const bottomOfList = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(0);
 
+  useEffect(() => {
+    setPosts([]);
+  }, [])
+
   async function load() {
     setLoading(true);
     try {
       const response = await axios.get('https://oauth.reddit.com/best', {
         headers: {Authorization: `bearer ${token}`},
         params: {
-          limit: 10,
+          limit: 20,
           after: nextAfter,
         }
       })
@@ -72,11 +76,10 @@ export function CardsList() {
   }
 
   useEffect(() => {
-
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && counter < 2) {
-        load();
         setCounter(counter + 1);
+        load();
       }
     }, {
       rootMargin: '10px'

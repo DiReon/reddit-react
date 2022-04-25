@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styles from './cardinfo.css';
 import {IUser} from '../../CardsList';
 import {Post} from '../../../Post';
+import { Link } from 'react-router-dom';
 
 export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl: string, user: IUser, postDate: string}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,12 +23,15 @@ export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl
           </span>
       </div>
       <h2 className={styles.title}>
-        <a href={postUrl} className={styles.postLink} onClick={() => {setIsModalOpen(true)}}>
+        <Link to="/posts/1" className={styles.postLink}>
           {text}
-        </a>
+        </Link>
+        {/*<a href={postUrl} className={styles.postLink} onClick={() => {setIsModalOpen(true)}}>*/}
+        {/*  {text}*/}
+        {/*</a>*/}
       </h2>
       {isModalOpen && (
-        <Post onClose={() => {setIsModalOpen(false)}}/>
+        <Post />
       )}
     </div>
   );

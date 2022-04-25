@@ -3,18 +3,15 @@ import * as ReactDOM from 'react-dom';
 import styles from './post.css';
 import {Comment} from '../Reply';
 import {CommentFormContainer} from '../CommentFormContainer';
+import { useNavigate } from 'react-router-dom';
 
-interface IPost {
-  onClose?: () => void;
-}
-
-export function Post(props: IPost) {
+export function Post() {
   const ref = useRef<HTMLDivElement>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     function handleClick(event: MouseEvent) {
       if (event.target instanceof Node && !ref.current?.contains(event.target)) {
-        props.onClose?.();
+        navigate('/');
       }
     }
     document.addEventListener('click', handleClick);
