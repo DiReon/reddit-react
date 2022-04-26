@@ -5,7 +5,6 @@ import {Post} from '../../../Post';
 import { Link } from 'react-router-dom';
 
 export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl: string, user: IUser, postDate: string}) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={styles.textContent}>
       <div className={styles.metaData}>
@@ -26,13 +25,7 @@ export function CardInfo({text, postUrl, user, postDate}: {text: string; postUrl
         <Link to="/posts/1" className={styles.postLink}>
           {text}
         </Link>
-        {/*<a href={postUrl} className={styles.postLink} onClick={() => {setIsModalOpen(true)}}>*/}
-        {/*  {text}*/}
-        {/*</a>*/}
       </h2>
-      {isModalOpen && (
-        <Post />
-      )}
     </div>
   );
 }

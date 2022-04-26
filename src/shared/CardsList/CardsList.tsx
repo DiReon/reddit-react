@@ -4,6 +4,7 @@ import {Card} from './Card';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/reducer';
+import { Outlet } from 'react-router-dom';
 
 export interface IUser {
   name: string;
@@ -102,19 +103,21 @@ export function CardsList() {
   }
 
   return (
-    <ul className={styles.cardsList}>
-      { posts.map(item => <Card key={item.data.key} data={item.data}/>) }
-      {/*<Card data={mockCardData}/>*/}
-      {posts.length === 0 && !loading && !errorLoading && (
-        <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
-      )}
-      {(counter > 1) && (<button className={styles.button} onClick={loadMore}>Загрузить еще</button>)}
+    <div>
+      <ul className={styles.cardsList}>
+        { posts.map(item => <Card key={item.data.key} data={item.data}/>) }
+        {posts.length === 0 && !loading && !errorLoading && (
+          <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
+        )}
+        {(counter > 1) && (<button className={styles.button} onClick={loadMore}>Загрузить еще</button>)}
 
-      <div ref={bottomOfList} />
+        <div ref={bottomOfList} />
 
-      { loading && (<div  style={{ textAlign: 'center'}}>Загрузка...</div>)}
+        { loading && (<div  style={{ textAlign: 'center'}}>Загрузка...</div>)}
 
-      {errorLoading && (<div role="alert" style={{ textAlign: 'center'}}>{errorLoading}</div>)}
-    </ul>
+        {errorLoading && (<div role="alert" style={{ textAlign: 'center'}}>{errorLoading}</div>)}
+      </ul>
+      <Outlet />
+    </div>
   );
 }

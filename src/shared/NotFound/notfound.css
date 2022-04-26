@@ -1,0 +1,9 @@
+.container {
+	padding: 20px;
+}
+
+.link {
+	color: darkblue;
+	font-family: helvetica;
+	text-decoration: underline;
+}

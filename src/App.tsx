@@ -10,8 +10,9 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {rootReducer, setToken} from './store/reducer';
 import thunk from 'redux-thunk';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Post} from './shared/Post';
+import {NotFound} from './shared/NotFound';
 
 const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(thunk)
@@ -39,9 +40,13 @@ function AppComponent() {
           <Layout>
             <Header/>
             <Content>
-              <CardsList/>
-                <Routes>
-                  <Route path="/posts/:id" element={<Post />}></Route>
+              <Routes>
+                <Route path="/" element={<Navigate replace to="/posts"/>}/>
+                <Route path="/auth" element={<Navigate replace to="/posts"/>}/>
+                <Route path="/posts" element={<CardsList/>}>
+                  <Route path=":id" element={<Post/>}></Route>
+                </Route>
+                <Route path="*" element={<NotFound/>}/>
               </Routes>
             </Content>
           </Layout>
