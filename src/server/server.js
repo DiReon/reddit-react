@@ -6,14 +6,16 @@ import axios from "axios";
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 app.use('/static', express.static('./dist/client'));
 
 app.get('/auth', (req, res) => {
   axios.post(
     'https://www.reddit.com/api/v1/access_token',
-    `grant_type=authorization_code&code=${req.query.code}&redirect_uri=http://localhost:3000/auth`,
+    `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.REDIRECT_URL}`,
     {
-      auth: {username: process.env.CLIENT_ID, password: 'JWHAsT_uUI1TGmzMLgN1wCTHa5hDqQ'},
+      auth: {username: process.env.CLIENT_ID, password: process.env.SECRET},
       headers: {'Content-type': 'application/x-www-form-urlencoded'}
     }
   )
@@ -32,6 +34,6 @@ app.get('*', (req, res) => {
   );
 })
 
-app.listen(3000, () => {
-  console.log('Server started on localhost:3000');
+app.listen(PORT, () => {
+  console.log(`Server started on localhost:${PORT}`);
 })

@@ -2,6 +2,9 @@
   "name": "reddit-react",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "index.js",
   "dependencies": {
     "@types/react-dom": "^17.0.11",
@@ -17,9 +20,7 @@
     "react-router-dom": "^6.3.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.1"
-  },
-  "devDependencies": {
+    "redux-thunk": "^2.4.1",
     "@hot-loader/react-dom": "^17.0.1",
     "@types/classnames": "^2.3.1",
     "@types/enzyme": "^3.10.11",
@@ -49,11 +50,14 @@
     "webpack-hot-middleware": "^2.25.1",
     "webpack-node-externals": "^3.0.0"
   },
+  "devDependencies": {
+  },
   "scripts": {
     "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "cross-env NODE_ENV=development CLIENT_ID=dYfNJyd477kgREKoAlXnoQ node ./bin/dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "dev": "cross-env NODE_ENV=development CLIENT_ID=dYfNJyd477kgREKoAlXnoQ SECRET=JWHAsT_uUI1TGmzMLgN1wCTHa5hDqQ node ./bin/dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env CLIENT_ID=14Y3EmYWT78xTmjZrj9LSw SECRET=yM4wZWGc-5y44rEIg2g28TlgFZkTZA node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",
