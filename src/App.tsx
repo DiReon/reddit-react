@@ -27,6 +27,7 @@ function AppComponent() {
 
   useEffect(() => {
     const token = window.__token__;
+    console.log(token);
     store.dispatch(setToken(token));
     if (token) {
       localStorage.setItem('token', token);

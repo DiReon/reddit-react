@@ -7,13 +7,14 @@ import axios from "axios";
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+const REDIRECT_URL = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000/auth' : 'https://reddit-react-go.herokuapp.com/auth';
 
 app.use('/static', express.static('./dist/client'));
 
 app.get('/auth', (req, res) => {
   axios.post(
     'https://www.reddit.com/api/v1/access_token',
-    `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.REDIRECT_URL}`,
+    `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${REDIRECT_URL}`,
     {
       auth: {username: process.env.CLIENT_ID, password: process.env.SECRET},
       headers: {'Content-type': 'application/x-www-form-urlencoded'}
