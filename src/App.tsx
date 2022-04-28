@@ -26,7 +26,7 @@ function AppComponent() {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || window.__token__;
+    const token = window.__token__;
     store.dispatch(setToken(token));
     if (token) {
       localStorage.setItem('token', token);
