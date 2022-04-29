@@ -7,19 +7,14 @@ import axios from "axios";
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const REDIRECT_URL = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000/auth' : 'https://reddit-react-go.herokuapp.com/auth';
-const SECRET = 'yM4wZWGc-5y44rEIg2g28TlgFZkTZA';
-const CLIENT_ID = '14Y3EmYWT78xTmjZrj9LSw';
 app.use('/static', express.static('./dist/client'));
 
 app.get('/auth', (req, res) => {
-  console.log('Request', req);
-  console.log('Response', res);
   axios.post(
     'https://www.reddit.com/api/v1/access_token',
-    `grant_type=authorization_code&code=${req.query.code}&redirect_uri=https://reddit-react-go.herokuapp.com/auth`,
+    `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.REDIRECT_URI}`,
     {
-      auth: {username: CLIENT_ID, password: SECRET},
+      auth: {username: process.env.CLIENT_ID, password: process.env.SECRET},
       headers: {'Content-type': 'application/x-www-form-urlencoded'}
     }
   )
@@ -40,6 +35,4 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server started on localhost:${PORT}`);
-  console.log('SECRET: ', SECRET);
-  console.log('Client_ID: ', CLIENT_ID);
 })

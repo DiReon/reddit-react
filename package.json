@@ -55,9 +55,9 @@
   "scripts": {
     "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "cross-env NODE_ENV=development CLIENT_ID=dYfNJyd477kgREKoAlXnoQ SECRET=JWHAsT_uUI1TGmzMLgN1wCTHa5hDqQ node ./bin/dev.js",
+    "dev": "cross-env NODE_ENV=development CLIENT_ID=dYfNJyd477kgREKoAlXnoQ SECRET=JWHAsT_uUI1TGmzMLgN1wCTHa5hDqQ REDIRECT_URI=http://localhost:3000/auth node ./bin/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env CLIENT_ID=14Y3EmYWT78xTmjZrj9LSw SECRET=yM4wZWGc-5y44rEIg2g28TlgFZkTZA node ./dist/server/server.js"
+    "start": "cross-env CLIENT_ID=14Y3EmYWT78xTmjZrj9LSw SECRET=yM4wZWGc-5y44rEIg2g28TlgFZkTZA REDIRECT_URI=https://reddit-react-go.herokuapp.com/auth node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",
