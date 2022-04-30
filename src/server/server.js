@@ -13,7 +13,7 @@ if (!IS_DEV) {
     app.use(compression());
     app.use(helmet({
         contentSecurityPolicy: false,
-        crossOriginResourcePolicy: false
+        crossOriginResourcePolicy: {policy: 'cross-origin'}
     }));
 }
 app.use('/static', express.static('./dist/client'));

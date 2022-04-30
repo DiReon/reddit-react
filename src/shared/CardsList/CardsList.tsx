@@ -63,7 +63,7 @@ export function CardsList() {
           user: {name: item.data.author, avatarUrl: item.data.sr_detail.icon_img},
           text: item.data.title,
           postUrl: item.data.url,
-          postImgUrl: item.data.thumbnail
+          postImgUrl: item.data.url
         }
       }));
 
