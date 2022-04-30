@@ -49,7 +49,7 @@ export function CardsList() {
   async function load() {
     setLoading(true);
     try {
-      const response = await axios.get('https://oauth.reddit.com/best', {
+      const response = await axios.get('https://oauth.reddit.com/r/popular/best.json?sr_detail=true', {
         headers: {Authorization: `bearer ${token}`},
         params: {
           limit: 20,
@@ -60,7 +60,7 @@ export function CardsList() {
       const result = children.map((item: any) => ({
         data: {
           key: item.data.id,
-          user: {name: item.data.author},
+          user: {name: item.data.author, avatarUrl: item.data.sr_detail.icon_img},
           text: item.data.title,
           postUrl: item.data.url,
           postImgUrl: item.data.thumbnail

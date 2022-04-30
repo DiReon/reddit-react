@@ -55,7 +55,8 @@ export const meRequestAsync = (): ThunkAction<void, RootState, unknown, Action<s
   })
     .then((resp) => {
       const userData = resp.data;
-      const myUserData = {name: userData.name, iconImg: userData.icon_img};
+      console.log(userData);
+      const myUserData = {name: userData.name, iconImg: userData.snoovatar_img};
       dispatch(meRequestSuccess(myUserData));
     })
     .catch((error) => {
