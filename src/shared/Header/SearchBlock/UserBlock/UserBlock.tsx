@@ -10,9 +10,6 @@ interface IUserBlockProps {
 }
 
 export function UserBlock({avatarSrc, username, loading}: IUserBlockProps) {
-    console.log(process.env);
-    console.log(process.env.CLIENT_ID);
-    console.log(process.env.REDIRECT_URI);
     return (
         <a
             href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=${process.env.REDIRECT_URI}&duration=permanent&scope=read submit identity`}
