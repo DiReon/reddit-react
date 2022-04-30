@@ -12,7 +12,8 @@ const IS_DEV = process.env.NODE_ENV !== 'production';
 if (!IS_DEV) {
     app.use(compression());
     app.use(helmet({
-        contentSecurityPolicy: false
+        contentSecurityPolicy: false,
+        crossOriginResourcePolicy: false
     }));
 }
 app.use('/static', express.static('./dist/client'));
