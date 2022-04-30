@@ -7,9 +7,12 @@ const IS_PROD = NODE_ENV === 'production';
 const GLOBAL_CSS_REGEXP = /\.global\.css?$/;
 const DEV_PLUGINS = [new HotModuleReplacementPlugin(), new CleanWebpackPlugin()];
 const COMMON_PLUGINS = [
-    new DefinePlugin({'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`}),
-    new DefinePlugin({'process.env.SECRET': `'${process.env.SECRET}'`}),
-    new DefinePlugin({'process.env.REDIRECT_URI': `'${process.env.REDIRECT_URI}'`}),
+  new DefinePlugin({
+        'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`,
+        'process.env.SECRET': `'${process.env.SECRET}'`,
+        'process.env.REDIRECT_URI': `'${process.env.REDIRECT_URI}'`
+      }
+  ),
 ];
 function setupDevTool() {
   if (IS_DEV) return 'eval';
