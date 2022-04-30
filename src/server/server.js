@@ -3,12 +3,19 @@ import ReactDOM from 'react-dom/server';
 import {indexTemplate} from "./indexTemplate";
 import {App} from "../App";
 import axios from "axios";
-
+import compression from 'compression';
+import helmet from "helmet";
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+const IS_DEV = process.env.NODE_ENV !== 'production';
+if (!IS_DEV) {
+    app.use(compression());
+    app.use(helmet({
+        contentSecurityPolicy: false
+    }));
+}
 app.use('/static', express.static('./dist/client'));
-
 app.get('/auth', (req, res) => {
   axios.post(
     'https://www.reddit.com/api/v1/access_token',
