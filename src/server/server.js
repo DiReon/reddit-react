@@ -11,10 +11,10 @@ const PORT = process.env.PORT || 3000;
 const IS_DEV = process.env.NODE_ENV !== 'production';
 if (!IS_DEV) {
     app.use(compression());
-    app.use(helmet({
-        contentSecurityPolicy: false,
-        crossOriginResourcePolicy: {policy: 'cross-origin'}
-    }));
+    // app.use(helmet({
+    //     contentSecurityPolicy: false,
+    //     // crossOriginResourcePolicy: {policy: 'cross-origin'}
+    // }));
 }
 app.use('/static', express.static('./dist/client'));
 app.get('/auth', (req, res) => {
