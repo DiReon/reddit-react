@@ -1,44 +1,56 @@
-import React from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import styles from './commentform.css';
 import {useFormik} from 'formik';
+import {makeAutoObservable} from "mobx";
+import {observer} from "mobx-react-lite";
 
 interface ICommentFormValues {
-  commentText?: string
+    commentText?: string
 }
 
-export function CommentForm() {
+class Comment {
+    value = 'Hello from Mobx';
 
-  const validate = (values: ICommentFormValues) => {
-    const errors: ICommentFormValues = {};
-    if (!values.commentText) {
-      errors.commentText = 'Required';
-    } else if (values.commentText.length <= 3) {
-      errors.commentText = 'Must be more than 3 characters';
+    constructor() {
+        makeAutoObservable(this);
     }
-    return errors
-  }
 
-  const formik = useFormik({
-    initialValues: {
-      commentText: '',
-    },
-    validate,
-    onSubmit: values => {
-      alert('Форма отправлена' + values.commentText);
-    },
-  });
-
-  return (
-    <form className={styles.form} onSubmit={formik.handleSubmit}>
-      <textarea
-        id="commentText"
-        className={styles.input}
-        {...formik.getFieldProps('commentText')}
-        aria-invalid={formik.errors ? 'true' : undefined}/>
-
-        {formik.touched.commentText && formik.errors && (<div>{formik.errors.commentText}</div>)}
-
-      <button type="submit" className={styles.button}>Комментировать</button>
-    </form>
-  );
+    updateValue(value: string): void {
+        this.value = value;
+    }
 }
+
+const myComment = new Comment();
+
+export const CommentForm = observer(() => {
+  const [isTouched, setIsTouched] = useState(false);
+  const [valueError, setValueError] = useState('');
+    function handleSubmit(event: FormEvent): void {
+        event.preventDefault();
+        setValueError(validateValue());
+        if (isFormValid) {
+            alert('Форма отправлена!');
+        }
+    }
+
+    const isFormValid = !validateValue()
+
+    function handleChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+        myComment.updateValue(event.target.value);
+    }
+
+    function validateValue() {
+        if (myComment.value.length <= 3) return 'Меньше 4х символов';
+        return '';
+    }
+
+    return (
+        <form className={styles.form} onSubmit={handleSubmit}>
+            <textarea className={styles.input} value={myComment.value} onChange={handleChange}
+                      aria-invalid={valueError ? 'true' : undefined}/>
+            {isTouched && valueError && (<div>{valueError}</div>)}
+            <button type="submit" className={styles.button}>Комментировать</button>
+        </form>
+    );
+
+})
