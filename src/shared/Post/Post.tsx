@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom';
 import styles from './post.css';
 import {Comment} from '../Reply';
 import {CommentFormContainer} from '../CommentFormContainer';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {RecoilRoot} from "recoil";
 
 export function Post() {
   const ref = useRef<HTMLDivElement>(null);
@@ -14,6 +15,7 @@ export function Post() {
         navigate('/');
       }
     }
+
     document.addEventListener('click', handleClick);
 
     return () => {
@@ -21,15 +23,20 @@ export function Post() {
     }
   }, [])
   const node = document.querySelector('#modal_root');
-  if (!node) {return null};
+  if (!node) {
+    return null
+  }
+  ;
   return ReactDOM.createPortal((
     <div className={styles.modal} ref={ref}>
       <h2>Следует отметить, что новая модель организационной деятельности поможет</h2>
       <div className={styles.content}>
         <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное,</p>
       </div>
-      <CommentFormContainer />
-      <Comment />
+      <RecoilRoot>
+        <CommentFormContainer/>
+        <Comment/>
+      </RecoilRoot>
     </div>), node
   );
 }
