@@ -1,7 +1,7 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import styles from './commentform.css';
-import {atom, useRecoilState, useRecoilValue} from "recoil";
-import {charCountState, textState} from "../../recoil.atoms";
+import {useRecoilState} from "recoil";
+import {textState} from "../../recoil.atoms";
 
 interface ICommentFormValues {
   commentText?: string
